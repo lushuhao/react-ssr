@@ -8,6 +8,12 @@ const reducer = combineReducers({
 
 const getStore = () => createStore(reducer, applyMiddleware(thunkMiddleware))
 
+const getClientStore = () => {
+  const defaultStore = window.context.state
+  return createStore(reducer, defaultStore, applyMiddleware(thunkMiddleware))
+}
+
 export {
-  getStore
+  getStore,
+  getClientStore
 }

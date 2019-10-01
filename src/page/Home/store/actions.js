@@ -6,11 +6,9 @@ const changeList = (list) => {
     type: CHANGE_LIST,
     list
   }
-
 }
 
-export const getHomeList = () => dispatch => {
-  getNews().then(res => {
-    dispatch(changeList(res.data))
-  })
-}
+export const getHomeList = () => dispatch => getNews().then(res => {
+  return dispatch(changeList(res.data))
+})
+

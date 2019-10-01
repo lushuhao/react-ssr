@@ -1,12 +1,28 @@
 import express from 'express'
+import { matchRoutes } from 'react-router-config'
+import routes from '../route/index'
 import { render } from './utils'
+import { getStore } from '../store'
 
 const app = express()
 
 app.use(express.static('public'))
 
 app.get('*', (req, res) => {
-  res.send(render(req))
+  const store = getStore()
+
+  const matchedRoutes = matchRoutes(routes, req.path);
+  const promises = []
+
+  matchedRoutes.forEach(({route: {loadData}}) => {
+    if (loadData) {
+      promises.push(loadData(store))
+    }
+  })
+
+  Promise.all(promises).then(() => {
+    res.send(render(store, routes, req))
+  })
 })
 
 app.listen(3000, () => {

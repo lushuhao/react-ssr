@@ -4,9 +4,15 @@ import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
 
 class Home extends Component {
+  static loadData(store) {
+    return store.dispatch(getHomeList())
+  }
 
   componentDidMount() {
-    this.props.getHomeList()
+    const {newsList, getHomeList} = this.props
+    if (!newsList.length) {
+      getHomeList()
+    }
   }
 
   render() {
