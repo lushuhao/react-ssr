@@ -1,7 +1,6 @@
-import axios from 'axios'
+import request from './request';
 
 export function getNews() {
-  const url = 'http://static.lushuhao.cn/news.json'
-
-  return axios.get(url).then(res => res.data)
+  const url = '/news.json';
+  return request.get(url).then(res => res.data);
 }

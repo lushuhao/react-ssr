@@ -1,39 +1,39 @@
-import React, { Component } from 'react'
-import Header from '../../components/Header'
-import { connect } from 'react-redux'
-import { getHomeList } from './store/actions'
+import React, { Component } from 'react';
+import Header from '../../components/Header';
+import { connect } from 'react-redux';
+import { getHomeList } from './store/actions';
 
 class Home extends Component {
   static loadData(store) {
-    return store.dispatch(getHomeList())
+    return store.dispatch(getHomeList());
   }
 
   componentDidMount() {
-    const {newsList, getHomeList} = this.props
+    const { newsList, getHomeList } = this.props;
     if (!newsList.length) {
-      getHomeList()
+      getHomeList();
     }
   }
 
   render() {
-    const {newsList = []} = this.props
+    const { newsList = [] } = this.props;
     return (
       <div>
-        <Header/>
+        <Header />
         {
           newsList.map(news => <p key={news.id}>{news.title}</p>)
         }
       </div>
-    )
+    );
   }
 
 }
 
 export default connect(
   state => ({
-    newsList: state.home.newsList
+    newsList: state.home.newsList,
   }),
   dispatch => ({
-    getHomeList: () => dispatch(getHomeList())
-  })
-)(Home)
+    getHomeList: () => dispatch(getHomeList()),
+  }),
+)(Home);
