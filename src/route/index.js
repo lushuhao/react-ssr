@@ -4,6 +4,8 @@ import { Route } from 'react-router-dom'
 import App from '../App'
 import Home from '../page/Home/index'
 import Login from '../page/Login/index'
+import Translation from '../page/Translation/index'
+import NotFound from '../page/NotFound'
 
 export default [{
   path: '/',
@@ -21,6 +23,14 @@ export default [{
       exact: true,
       component: Login,
       key: 'login'
-    },
+    }, {
+      path: "/translation",
+      exact: true,
+      component: Translation,
+      key: 'translation'
+    }, {
+      component: NotFound,
+      key: 'notFound'
+    }
   ]
 }]

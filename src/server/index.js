@@ -17,14 +17,25 @@ app.get('*', (req, res) => {
   const matchedRoutes = matchRoutes(routes, req.path);
   const promises = [];
 
-  matchedRoutes.forEach(({ route: { loadData } }) => {
+  matchedRoutes.forEach(({route: {path, loadData}}) => {
     if (loadData) {
-      promises.push(loadData(store));
+      const promise = new Promise(
+        resolve =>
+          loadData(store).then(resolve).catch(resolve)
+      )
+      promises.push(promise);
     }
   });
 
   Promise.all(promises).then(() => {
-    res.send(render(store, routes, req));
+    const context = {}
+    const html = render(store, routes, req, context)
+    if (context.action === 'REPLACE') {
+      return res.redirect(context.url)
+    } else if (context.NOT_FOUND_ERR) {
+      res.status(404)
+    }
+    res.send(html);
   });
 });
 
