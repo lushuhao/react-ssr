@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getHomeList } from './store/actions';
+import styles from './index.css'
 
 class Home extends Component {
   static loadData(store) {
     return store.dispatch(getHomeList());
+  }
+  
+  constructor(props) {
+    super(props)
+    if (props.staticContext) {
+      props.staticContext.css = styles._getCss()
+    }
   }
 
   componentDidMount() {
@@ -17,7 +25,7 @@ class Home extends Component {
   render() {
     const { newsList = [] } = this.props;
     return (
-      <div>
+      <div className={styles.home}>
         {
           newsList.map(news => <p key={news.id}>{news.title}</p>)
         }

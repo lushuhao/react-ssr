@@ -14,10 +14,12 @@ export const render = (store, routes, req, context) => {
       </StaticRouter>
     </Provider>
   ))
+  const css = context.css
   return `
     <html>
     <head>
       <title>react ssr</title>
+      <style>${css}</style>
     </head>
     <body>
     <div id="root">${content}</div>

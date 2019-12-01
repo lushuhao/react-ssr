@@ -12,4 +12,22 @@ module.exports = merge(config, {
     path: path.resolve(__dirname, 'build'),
   },
   externals: [nodeExternals()],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'isomorphic-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]'
+              },
+            }
+          }
+        ]
+      }
+    ]
+  }
 })
