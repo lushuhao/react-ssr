@@ -11,7 +11,7 @@ class Home extends Component {
   constructor(props) {
     super(props)
     if (props.staticContext) {
-      props.staticContext.css = styles._getCss()
+      props.staticContext.css.push(styles._getCss())
     }
   }
 

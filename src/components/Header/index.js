@@ -2,12 +2,21 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login, logout } from './store/actions'
+import styles from './index.css'
 
 class Header extends Component {
+
+  constructor(props) {
+    super(props)
+    if (props.staticContext) {
+      props.staticContext.css.push(styles._getCss())
+    }
+  }
+
   render() {
     const {login, handleLogin, handleLogout} = this.props
     return (
-      <header>
+      <header className={styles.header}>
         <Link to="/">home</Link>
         <br/>
         {
