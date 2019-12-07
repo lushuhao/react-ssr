@@ -5,6 +5,7 @@ import App from '../App'
 import Home from '../page/Home/index'
 import Login from '../page/Login/index'
 import Translation from '../page/Translation/index'
+import Adjoin from '../page/Adjoin/index'
 import NotFound from '../page/NotFound'
 
 export default [{
@@ -28,6 +29,11 @@ export default [{
       exact: true,
       component: Translation,
       key: 'translation'
+    }, {
+      path: "/adjoin",
+      exact: true,
+      component: Adjoin,
+      key: 'adjoin'
     }, {
       component: NotFound,
       key: 'notFound'
