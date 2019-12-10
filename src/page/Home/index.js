@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { getHomeList } from './store/actions';
 import styles from './index.css'
 
@@ -26,6 +27,10 @@ class Home extends Component {
     const { newsList = [] } = this.props;
     return (
       <div className={styles.home}>
+        <Helmet>
+          <title>SSR 服务端渲染</title>
+          <meta name="description" content="简单的ssr实现"/>
+        </Helmet>
         {
           newsList.map(news => <p key={news.id}>{news.title}</p>)
         }

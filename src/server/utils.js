@@ -1,8 +1,9 @@
-import React from 'react'
-import { StaticRouter, Route } from 'react-router-dom'
-import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
-import { renderRoutes } from 'react-router-config'
+import React from 'react';
+import { StaticRouter, Route } from 'react-router-dom';
+import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
+import { Helmet } from 'react-helmet';
 
 export const render = (store, routes, req, context) => {
   const content = renderToString((
@@ -13,12 +14,14 @@ export const render = (store, routes, req, context) => {
         </div>
       </StaticRouter>
     </Provider>
-  ))
-  const cssStr = context.css.join('\n')
+  ));
+  const helmet = Helmet.renderStatic()
+  const cssStr = context.css.join('\n');
   return `
     <html>
     <head>
-      <title>react ssr</title>
+       ${helmet.title.toString()}
+       ${helmet.meta.toString()}
       <style>${cssStr}</style>
     </head>
     <body>
@@ -29,5 +32,5 @@ export const render = (store, routes, req, context) => {
     <script src="/index.js"></script>
     </body>
     </html>
-  `
-}
+  `;
+};
